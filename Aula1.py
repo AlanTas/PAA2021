@@ -1,4 +1,5 @@
 import datetime
+import random
 from time import perf_counter_ns
 from time import perf_counter
 import matplotlib.pyplot as plt
@@ -7,6 +8,23 @@ import time
 plt.style.use("ggplot")
 import numpy as np
 
+def gerar_vetor_ordenado(n):
+    lista = random.sample(range(1, 999999), n)
+    lista.sort()
+    return lista
+
+def gerar_vetor_inversamente_ordenado(n):
+    lista = random.sample(range(1, 999999), n)
+    lista.sort(reverse=True)
+    return lista
+
+def gerar_vetor_aleatorio(n):
+    lista = random.sample(range(1, 999999), n)
+    return lista
+
+def gerar_vetor_repetido(n):
+    lista = [random.randint(1, 999999)] * n
+    return lista
 
 def exercicio_um():
     # Qual é o menor valor de entrada n (considere n > 0) tal que
@@ -151,7 +169,7 @@ def exercicio_quatro():
     plt.show()
 
 
-def exercicio_5(n):
+def exercicio_5_insercao(valores_ate):
 
     def insercao(V):
         for i in range(1, len(V)):
@@ -162,10 +180,163 @@ def exercicio_5(n):
                 j -= 1
             V[j + 1] = key
 
+    x = np.linspace(1, valores_ate, valores_ate)
+    tempos_aleatorio = []
+    tempos_ordenado = []
+    tempos_inversamente_ordenado = []
+    tempos_repetido = []
+    for k in x:
+        vetor_aleatorio = gerar_vetor_aleatorio(int(k))
+        vetor_ordenado = gerar_vetor_ordenado(int(k))
+        vetor_inversamente_ordenado = gerar_vetor_inversamente_ordenado(int(k))
+        vetor_repetido = gerar_vetor_repetido(int(k))
+
+        start = perf_counter() * 1000
+        insercao(vetor_aleatorio)
+        end = perf_counter() * 1000
+        tempos_aleatorio.append(end - start)
+
+        start = perf_counter() * 1000
+        insercao(vetor_ordenado)
+        end = perf_counter() * 1000
+        tempos_ordenado.append(end - start)
+
+        start = perf_counter() * 1000
+        insercao(vetor_inversamente_ordenado)
+        end = perf_counter() * 1000
+        tempos_inversamente_ordenado.append(end - start)
+
+        start = perf_counter() * 1000
+        insercao(vetor_repetido)
+        end = perf_counter() * 1000
+        tempos_repetido.append(end - start)
+
+    plt.figure(figsize=(8, 6))
+    plt.title("Inserção", y=1.104)
+    plt.plot(x, tempos_aleatorio, label='Entrada aleatória')
+    plt.plot(x, tempos_ordenado, label='Entrada ordenada', color='yellow')
+    plt.plot(x, tempos_inversamente_ordenado, label='Entrada inversamente ordenada', color='green')
+    plt.plot(x, tempos_repetido, label='Entrada repetida')
+    plt.legend(bbox_to_anchor=(0., 1.01, 1., .10), loc='center',
+               ncol=2, borderaxespad=0)
+
+    plt.xlabel("Tamanho da entrada")
+    plt.ylabel("Tempo de execução (ms)")
+    plt.show()
 
 
+def exercicio_5_selecao(valores_ate):
 
-# exercicio_um()
-# exercicio_dois()
-# exercicio_tres()
+    def selecao(V):
+        for i in range(len(V)):
+            min_idx = i
+            for j in range(i + 1, len(V)):
+                if V[min_idx] > V[j]:
+                    min_idx = j
+
+            V[i], V[min_idx] = V[min_idx], V[i]
+
+    x = np.linspace(1, valores_ate, valores_ate)
+    tempos_aleatorio = []
+    tempos_ordenado = []
+    tempos_inversamente_ordenado = []
+    tempos_repetido = []
+    for k in x:
+        vetor_aleatorio = gerar_vetor_aleatorio(int(k))
+        vetor_ordenado = gerar_vetor_ordenado(int(k))
+        vetor_inversamente_ordenado = gerar_vetor_inversamente_ordenado(int(k))
+        vetor_repetido = gerar_vetor_repetido(int(k))
+
+        start = perf_counter() * 1000
+        selecao(vetor_aleatorio)
+        end = perf_counter() * 1000
+        tempos_aleatorio.append(end - start)
+
+        start = perf_counter() * 1000
+        selecao(vetor_ordenado)
+        end = perf_counter() * 1000
+        tempos_ordenado.append(end - start)
+
+        start = perf_counter() * 1000
+        selecao(vetor_inversamente_ordenado)
+        end = perf_counter() * 1000
+        tempos_inversamente_ordenado.append(end - start)
+
+        start = perf_counter() * 1000
+        selecao(vetor_repetido)
+        end = perf_counter() * 1000
+        tempos_repetido.append(end - start)
+
+    plt.figure(figsize=(8, 6))
+    plt.title("Seleção", y=1.104)
+    plt.plot(x, tempos_aleatorio, label='Entrada aleatória')
+    plt.plot(x, tempos_ordenado, label='Entrada ordenada', color='yellow')
+    plt.plot(x, tempos_inversamente_ordenado, label='Entrada inversamente ordenada', color='green')
+    plt.plot(x, tempos_repetido, label='Entrada repetida')
+    plt.legend(bbox_to_anchor=(0., 1.01, 1., .10), loc='center',
+               ncol=2, borderaxespad=0)
+
+    plt.xlabel("Tamanho da entrada")
+    plt.ylabel("Tempo de execução (ms)")
+    plt.show()
+
+def exercicio_5_bubble(valores_ate):
+
+    def bubble(V):
+        n = len(V)
+        for i in range(n - 1):
+            for j in range(0, n - i - 1):
+                if V[j] > V[j + 1]:
+                    V[j], V[j + 1] = V[j + 1], V[j]
+
+    x = np.linspace(1, valores_ate, valores_ate)
+    tempos_aleatorio = []
+    tempos_ordenado = []
+    tempos_inversamente_ordenado = []
+    tempos_repetido = []
+    for k in x:
+        vetor_aleatorio = gerar_vetor_aleatorio(int(k))
+        vetor_ordenado = gerar_vetor_ordenado(int(k))
+        vetor_inversamente_ordenado = gerar_vetor_inversamente_ordenado(int(k))
+        vetor_repetido = gerar_vetor_repetido(int(k))
+
+        start = perf_counter() * 1000
+        bubble(vetor_aleatorio)
+        end = perf_counter() * 1000
+        tempos_aleatorio.append(end - start)
+
+        start = perf_counter() * 1000
+        bubble(vetor_ordenado)
+        end = perf_counter() * 1000
+        tempos_ordenado.append(end - start)
+
+        start = perf_counter() * 1000
+        bubble(vetor_inversamente_ordenado)
+        end = perf_counter() * 1000
+        tempos_inversamente_ordenado.append(end - start)
+
+        start = perf_counter() * 1000
+        bubble(vetor_repetido)
+        end = perf_counter() * 1000
+        tempos_repetido.append(end - start)
+
+    plt.figure(figsize=(8, 6))
+    plt.title("Bubble", y=1.104)
+    plt.plot(x, tempos_aleatorio, label='Entrada aleatória')
+    plt.plot(x, tempos_ordenado, label='Entrada ordenada', color='yellow')
+    plt.plot(x, tempos_inversamente_ordenado, label='Entrada inversamente ordenada', color='green')
+    plt.plot(x, tempos_repetido, label='Entrada repetida')
+    plt.legend(bbox_to_anchor=(0., 1.01, 1., .10), loc='center',
+               ncol=2, borderaxespad=0)
+
+    plt.xlabel("Tamanho da entrada")
+    plt.ylabel("Tempo de execução (ms)")
+    plt.show()
+
+exercicio_um()
+exercicio_dois()
+exercicio_tres()
 exercicio_quatro()
+exercicio_5_selecao(100)
+exercicio_5_insercao(100)
+exercicio_5_bubble(100)
