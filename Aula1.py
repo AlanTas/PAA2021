@@ -26,7 +26,7 @@ def gerar_vetor_repetido(n):
     lista = [random.randint(1, 999999)] * n
     return lista
 
-def exercicio_um():
+def exercicio_um(numero_entradas):
     # Qual é o menor valor de entrada n (considere n > 0) tal que
     # um algoritmo cujo tempo de execução é 10n^2 é mais rápido
     # que um algoritmo cujo tempo de execução é 2^n?
@@ -34,7 +34,6 @@ def exercicio_um():
 
     func_quadratica = []
     func_exponencial = []
-    numero_entradas = 13
     for x in range(1, numero_entradas):
         quadratico = 10 * (x ** 2)
         exponencial = (2 ** x)
@@ -61,7 +60,7 @@ def exercicio_um():
     plt.show()
 
 
-def exercicio_dois():
+def exercicio_dois(valores_ate):
     # Implemente em uma linguagem de programação a sua escolha
     # o algoritmo abaixo que verifica se o valor de entrada é, ou
     # não, um número primo. Existe pior e melhor caso?
@@ -73,7 +72,6 @@ def exercicio_dois():
 
         print(n, "é primo.") if j == n else print(n, "não é primo.")
 
-    valores_ate = 200
     x = np.linspace(1, valores_ate, valores_ate)
     tempos = []
     for i in x:
@@ -89,7 +87,7 @@ def exercicio_dois():
     plt.ylabel("Tempo de execução (ms)")
     plt.show()
 
-def exercicio_tres():
+def exercicio_tres(valores_ate):
 
     # LISTA_PRIMO
     # Implemente em uma linguagem de programação a sua escolha
@@ -108,7 +106,6 @@ def exercicio_tres():
                 A.append(i)
                 x += 1
 
-    valores_ate = 20
     x = np.linspace(1, valores_ate, valores_ate)
     tempos = []
     for k in x:
@@ -125,7 +122,7 @@ def exercicio_tres():
     plt.show()
 
 
-def exercicio_quatro():
+def exercicio_quatro(valores_ate):
 
     # Cada um dos algoritmos abaixo recebe um inteiro positivo e
     # devolve outro inteiro positivo. Os dois algoritmos devolvem o
@@ -143,7 +140,6 @@ def exercicio_quatro():
         x = int(x / 6)
         return x
 
-    valores_ate = 200
     x = np.linspace(1, valores_ate, valores_ate)
     tempos_a = []
     tempos_b = []
@@ -212,7 +208,7 @@ def exercicio_5_insercao(valores_ate):
         tempos_repetido.append(end - start)
 
     plt.figure(figsize=(8, 6))
-    plt.title("Inserção", y=1.104)
+    plt.title("Exercício 5 - Inserção", y=1.104)
     plt.plot(x, tempos_aleatorio, label='Entrada aleatória')
     plt.plot(x, tempos_ordenado, label='Entrada ordenada', color='yellow')
     plt.plot(x, tempos_inversamente_ordenado, label='Entrada inversamente ordenada', color='green')
@@ -268,7 +264,7 @@ def exercicio_5_selecao(valores_ate):
         tempos_repetido.append(end - start)
 
     plt.figure(figsize=(8, 6))
-    plt.title("Seleção", y=1.104)
+    plt.title("Exercício 5 - Seleção", y=1.104)
     plt.plot(x, tempos_aleatorio, label='Entrada aleatória')
     plt.plot(x, tempos_ordenado, label='Entrada ordenada', color='yellow')
     plt.plot(x, tempos_inversamente_ordenado, label='Entrada inversamente ordenada', color='green')
@@ -321,7 +317,7 @@ def exercicio_5_bubble(valores_ate):
         tempos_repetido.append(end - start)
 
     plt.figure(figsize=(8, 6))
-    plt.title("Bubble", y=1.104)
+    plt.title("Exercício 5 - Bubble", y=1.104)
     plt.plot(x, tempos_aleatorio, label='Entrada aleatória')
     plt.plot(x, tempos_ordenado, label='Entrada ordenada', color='yellow')
     plt.plot(x, tempos_inversamente_ordenado, label='Entrada inversamente ordenada', color='green')
@@ -333,10 +329,10 @@ def exercicio_5_bubble(valores_ate):
     plt.ylabel("Tempo de execução (ms)")
     plt.show()
 
-exercicio_um()
-exercicio_dois()
-exercicio_tres()
-exercicio_quatro()
+exercicio_um(13)
+exercicio_dois(200)
+exercicio_tres(20)
+exercicio_quatro(200)
 exercicio_5_selecao(100)
 exercicio_5_insercao(100)
 exercicio_5_bubble(100)
